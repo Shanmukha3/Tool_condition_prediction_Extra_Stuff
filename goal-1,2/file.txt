@@ -1,0 +1,423 @@
+\documentclass[conference,onecolumn]{IEEEtran}
+\IEEEoverridecommandlockouts
+
+\usepackage{setspace}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{algorithm}
+\usepackage{algorithmic}
+\usepackage{graphicx}
+\usepackage{textcomp}
+\usepackage{xcolor}
+\usepackage[backend=biber,style=nature, sorting=none]{biblatex}
+\addbibresource{ref.bib}
+\def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
+    T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
+\begin{document}
+
+\title{A Dual-Model Approach Utilizing Convolutional Autoencoders and Deep Neural Networks for Lung Cancer Detection\\
+
+}
+\author{
+\IEEEauthorblockN{
+Shanmukha Sudha Kiran Thotakura\textsuperscript{1},  
+Sai Sravya Sri Machavarapu\textsuperscript{2},  
+Kopparapu Akshay Kumar\textsuperscript{3}, \\ 
+Safuwan Shiblee\textsuperscript{4},  
+B Suvarna\textsuperscript{5},  
+Jhansi Lakshmi P\textsuperscript{6}  
+}
+\IEEEauthorblockA{
+\textit{VFSTR Deemed to be University},  
+Guntur, Andhra Pradesh, India  
+}
+\IEEEauthorblockA{
+\begin{tabular}{c c}\\
+\textsuperscript{1} \small sudhakiran0308@gmail.com  
+\textsuperscript{2} \small saisravyasrimachavarapu232@gmail.com 
+\textsuperscript{3} \small kakshayk272@gmail.com 
+\textsuperscript{4} \small safuwanshiblee3@gmail.com  \\ 
+\textsuperscript{5} \small suvarna1720@gmail.com 
+\textsuperscript{6} \small laxmi.jhansi@gmail.com  
+\end{tabular}  \\
+}
+}
+
+
+
+
+% \author{\IEEEauthorblockN{Shanmukha Sudha Kiran Thotakura}
+% \IEEEauthorblockA{
+% \textit{VFSTR Deemed to be University}\\
+% Guntur,Andhra Pradesh, India \\
+% sudhakiran0308@gamil.com}
+% \and
+% \IEEEauthorblockN{ Sai Sravya Sri Machavarapu}
+% \IEEEauthorblockA{
+% \textit{VFSTR Deemed to be University}\\
+% Guntur,Andhra Pradesh, India \\
+% saisravyasrimachavarapu232@gmail.com}
+% \and
+% \IEEEauthorblockN{Kopparapu Akshay kumar}
+% \IEEEauthorblockA{
+% \textit{VFSTR Deemed to be University}\\
+% Guntur, Andhra Pradesh, India \\
+% kakshayk272@gmail.com}
+% \and
+% \IEEEauthorblockN{Safuwan Shiblee}
+% \IEEEauthorblockA{
+% \textit{VFSTR Deemed to be University}\\
+% Guntur, Andhra Pradesh, India \\
+% safuwanshiblee3@gmail.com}
+% \and 
+% \IEEEauthorblockN{ B Suvarna}
+% \IEEEauthorblockA{
+% \textit{VFSTR Deemed to be University}\\
+% Guntur, Andhra Pradesh, India \\
+% suvarna1720@gmail.com}
+% \and 
+% \IEEEauthorblockN{ Jhansi Lakshmi P}
+% \IEEEauthorblockA{
+% \textit{VFSTR Deemed to be University}\\
+% Guntur, Andhra Pradesh, India \\
+% laxmi.jhansi@gmail.com}
+% \IEEEauthorblockN{5\textsuperscript{th} Given Name Surname}
+% \IEEEauthorblockA{\textit{Department of CSE} \\
+% \textit{VFSTR Deemed to be University}\\
+% Guntur,Andhra Pradesh, India \\
+% email address or ORCID}
+% \and
+% \IEEEauthorblockN{6\textsuperscript{th} Given Name Surname}
+% \IEEEauthorblockA{\textit{Department of CSE} \\
+% \textit{VFSTR Deemed to be University}\\
+% Guntur,Andhra Pradesh, India \\
+% email address or ORCID}
+}
+
+\maketitle
+
+\begin{abstract}
+Cancer stands at the top position in crucial problems that causes many problems to all, By implementing various methods with the latest technology we can accurately identify this cancer easily.
+This study presents a novel dual-model approach that integrates convolutional autoencoders to extract features and uses deep architecture to classify images based on extracted features of lung cancer detection. The proposed method begins with a convolutional autoencoder, which effectively compresses and reconstructs input data, thereby extracting relevant features from medical imaging datasets. These images which are extracted are given to DNN to train the model whether to tell about cancerous and non-cancerous cases.
+
+The LC25000 dataset was evaluated with an accuracy rating from the proposed model at 98\%. Also, the proposed methodology is assessed on the basis of accuracy, precision, recall, and F1 score. The results obtained do show that lung cancer detection by the proposed dual model is much better than the convolutional methods providing an effective way of detection at an early stage. This research underscores the unique approach of integrating feature extraction and classification techniques in medical diagnostics, which leads to new technologies and new algorithms to enhance the process of finding lunch cancer and other related applications.
+
+\end{abstract}
+
+\begin{IEEEkeywords}
+Lung Cancer, Deep Learning, AutoEncoders, Neural Network, Feature Extraction.
+\end{IEEEkeywords}
+
+\section{Introduction}
+Among all the various cancers, The most dangerous disease is Lung cancer which affects the whole life and family, Lung cancer causes more damage than any other form of cancer, posing different challenges in both its diagnosis and treatment. Lung cancer is broadly divided into two main different types: lung cancer with small cells and lung cancer with non-small cells, these are divided based on the varying biological characteristics, growth patterns, and clinical outcomes. Detecting cancer in the starting stage of its effection is very important to save deaths which leads to people's survival rates, yet this procedure a difficult task due to its typically late presentation and the overlap of its symptoms with other pulmonary diseases.
+
+
+
+Around the world many people are suffering from many diseases, lung cancer is one among them. A recent report indicates that around 1.8 million population died due to this lung cancer in 2020. Among the population, the leading cause of men is Lung cancer whereas for women it is the second leading, it is due to various unusual activities like smoking, tobacco, etc... Many people are suffering which effects that are caused by this Tobacco. At the starting stage of this disease, many people don't know that they are infected with cancer but when it grows to some extent then they come to know that they are affected by cancer. Even at that stage treatment can't help them to overcome that disease. This reality shows that there is a need for early detection techniques. 
+
+My motivation for this project is that I can't abolish or can't take necessary actions to abolish tobacco or cigarettes but as an Engineer, I can make things like a lung cancer detection system to detect disease in the starting stage which helps people to check earlier and take necessary treatment to cure.
+
+\section{Related Work}
+
+Abida Sultana et al. \cite{9733614} In our extensive evaluation using a dataset of 15,000 CT images, Inception-V3 emerged as the most effective model among the transfer learning approaches, achieving an impressive 99.13\% validation accuracy, underscoring its robustness for lung cancer detection. Meanwhile, the CNN-SVM model stood out among manually designed architectures, proving to be the best-performing option in non-transfer learning settings and showcasing its potential for accurate lung cancer classification. We evaluated our models using a suite of performance metrics— confusion matrix, accuracy, etc...—to provide a well-rounded assessment of classification efficacy. The dataset used by D. Lakshmi et al. \cite{devan2019cnn} comprises CT images sourced from 12 male and 4 female subjects, featuring 800 lung CT slices in its training set. Both VGG16 and VGG19 models were evaluated, with VGG19 demonstrating superior performance. VGG19 achieved sensitivity and specificity scores of 80\% and 100\%, respectively, outperforming VGG16, which recorded scores of 98\% sensitivity and 88\% specificity. N. Kalaivani et al. \cite{Kalaivani_2020} aimed at developing a deep architecture for neural networks for lung cancer using CT images. Their approach incorporates a DenseNet model paired with an adaptive boosting algorithm, leveraging the significance of data augmentation techniques and enhancing classification accuracy. The dataset employed by A. Asuntha et al. comprises 201 lung images, with 85\% divided for training part and the remaining 15\% for the testing part. 90.85\% is the top accuracy obtained among all the models, successfully distinguishing between good and malignant lung images. A. Asuntha et al.\cite{asuntha2020deep}\cite{article}\cite{asuntha2020lung} conducted a study focused on classifying cancerous lung nodules and additionally evaluating their severity using innovative deep learning approaches. This method employs advanced feature extraction techniques—including Histogram of Oriented Gradients (HoG) for extracting features, wavelet transform, Local Binary Pattern also called LBP. Susmita Das et al.\cite{das2020lung}\cite{kaur2023artificial}conducted a study comparing traditional Computer-based Diagnosis systems also called CAD systems with deep learning techniques for lung cancer detection. Traditional CAD systems typically involve multiple image processing steps, whereas deep architecture learning methods, especially CNNs, streamline the processes of feature extraction and classification through automation. The paper explores the benefits and drawbacks of both approaches. Bhagyashree Madan et al.\cite{madan2019lung} aim to enhance the starting stage of detecting lung cancer through the application of DL and image processing algorithms. Their approach employs an ensemble of Convolutional Neural Networks (CNNs) on CT scans from the LIDC dataset, achieving a validation accuracy of 93\%, with precision at 89.3\% and specificity at 98.2\%. The study underscores the critical importance of early diagnosis, which has the potential to improve survival rates by identifying cancer at earlier stages.
+
+
+
+Hadiyoso et al.\cite{10.6703--1945020859} Hamed et.al \cite{hamed2023efficient,} propose a deep learning approach for automated classifying images based on learning from previous insights. Their method utilizes a CNN architecture enhanced with contrast-limited Adaptive Histogram Equalization also called as CLAHE which helps to improve image contrast. Applied to a dataset of 25,000 images, the approach achieved a maximum accuracy of 98.96\%.AlGhamdi et al.\cite{cancers15133300}introduce the BERTL-HIALCC technique for cancer detection, testing was done on the LC25000 database, where it achieved impressive accuracy rates, including 99.19\% for the Col-Ad class and 99.27\% for the Col-Be class. The technique utilizes a convolutional recurrent neural network (CRNN) architecture with hyperparameter optimization performed through coati optimization, effectively minimizing classifier error rates and improving detection rates for both normal and abnormal heart sound signals. Overall, the BERTL-HIALCC method demonstrates significant advancements in cancer recognition relative to previous approaches.
+ Simie Endalew et.al \cite{endalew2019lung} focuses on an automated detection system that helps to detect lung cancer, leveraging deep learning technology to increase diagnostic accuracy using the latest technologies. Lung cancer mortality rates are rising globally, and early, reliable detection through tools like CT scans can save lives. The proposed 3D convolutional neural network (CNN) was applied on datasets from Kaggle and LUNA to enhance nodule detection and classification. Key steps include data preprocessing, lung and nodule segmentation, and classification into malignant or benign categories, achieving a 77\% accuracy rate.
+
+\section{Methodology:}
+In this section topics that are included about the approach/methodology that was used for detecting lung cancer using a dual-model approach. The approach involves data acquisition and preprocessing, feature extraction via a convolutional autoencoder, and classification using a deep neural network (DNN).
+\begin{figure*}[h]
+    \centering
+    \includegraphics[width=1.0\linewidth]{Architecture-1 .png}
+    \caption{Proposed Architecture of Dual Model}
+    \label{fig:proposedArchitecture}
+\end{figure*}
+
+\subsection{\textbf{Data Acquisition and Preprocessing:}}
+Initially, the input of images is loaded followed by preprocessing techniques like Image Rescaling, Image Enhancement,one-hot Encoding, and Visualization.
+
+Rescaling image pixel specifies to convert range (0 to 255) to range (e.g., [0, 1]), the formula used is:
+ \begin{equation}
+x' = \frac{x}{255}
+\end{equation}
+\text{where:}
+\begin{align*}
+x & \text{ is the original pixel value (in the range [0, 255])} \\
+x' & \text{ is the rescaled pixel value (in the range [0, 1])}
+\end{align*}
+In converting class labels into a one-hot encoded format, the formula can be expressed as follows:
+ \begin{equation}
+x_i = 
+\begin{cases} 
+1 & \text{if } x = i \\
+0 & \text{if } x \neq i 
+\end{cases}
+\end{equation}
+
+\text{where:}
+\begin{align*}
+x & \text{ is original given class label} \\
+x_i & \text{ is one-hot encoded vector for class } i
+\end{align*}
+
+\subsection{\textbf{Feature Extraction:}}
+Feature extraction is done using a convolutional autoencoder. A convolutional autoencoder is the combination of input, output and one or more hidden layers which is commonly called as an artificial neural network. It is designed to learn efficient codings of unlabeled data in an unsupervised manner by reconstructing the input into a new representation and then reconstructing it back to the original form.
+
+
+In contrast, the decoder is constructed in reverse order to the encoder, mirroring the architecture to reconstruct the original input. The fundamental objective of the autoencoder is to produce an output that closely matches the input. By monitoring the loss value during training, we can observe the effectiveness of the autoencoder, as the number of epochs increases if there is a trend in the decrease of loss then that indicates that the autoencoder is a good fit for the data.
+
+
+The following table summarizes the architecture of the autoencoder:
+
+\begin{table}[h]
+    \caption{Architecture Overview of the Autoencoder}
+    \centering
+\end{table}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.49\textwidth,height=0.26\textheight]{Articture_table.png}
+    \label{loss_function}
+\end{figure}
+
+
+\begin{figure*}[h]
+    \centering
+    \includegraphics[width=1.0\linewidth]{autoEncoder.drawio.png}
+    \caption{Architecture for Convolutional AutoEncoder}
+    \label{fig:proposedArchitecture}
+\end{figure*}
+
+
+% ReLU Activation
+ \begin{equation}
+\text{ReLU}(y) = \max(0, y)
+\end{equation} 
+
+% Sigmoid Activation
+ \begin{equation}
+\sigma(x) = {1 + e^{-x}}^{-1}
+\end{equation}
+Convolutional Autoencoder (CAE) was selected instead of traditional CNN-based feature extraction techniques because Convolutional Autoencoder (CAE) did not learn feature extractions from the image manually like a CNN feature extractor, rather, it evolved to suit the dataset by learning features on its own. With CAE, the deep learning algorithm is able to capture both spatial and structural information essential for carrying out historical image analysis as patterns are built based on spatial structures. Also, we have placed CAE against traditional techniques such as a CNN in terms of feature quality, computational expense, and robustness, and accuracy of CAE proved to be more economical.
+
+
+In addition, consider breaking down the reasoning for selecting Deep Neural Network(DNN) over CNN-LSTM or a transformer model for classification. The DNN is more suitable because of the degree of sophistication needed to learn the complex mappings from CAE features. It is true that CNN-LSTM is good at working with sequential data like time series, but in our case, we have static histopathological images so it is more fitting to use DNN. Adding one more point to validate the reasoning, itself is enough to point out that the blunt power cerebrum is too austere and needs plenty of computational power and let us be honest, a bigger dataset to train effectively. To substantiate the reasoning further, we have performed a benchmark with other classifiers such as Random Forest, SVM and Transformer-based models and their effectiveness was analyzed.
+
+
+Based on the AutoEncoder design and loss obtained we can use that model for extracting features and they are passed to the next further process. The process followed for extracting features are shown as an algorithm:
+
+\begin{algorithm}
+\caption{Feature Extraction using Autoencoder for Classification}
+\label{alg:feature_extraction}
+\begin{algorithmic}[1]
+\STATE \textbf{Input:} Training set , Validation set , Encoder model \( \text{encoder} \)
+\STATE \textbf{Output:} Encoded training features \( X_{\text{train\_encoded}} \), Encoded training labels \( y_{\text{train\_encoded}} \), 
+\STATE \hspace{4em} Encoded validation features \( X_{\text{val\_encoded}} \), Encoded validation labels \( y_{\text{val\_encoded}} \)
+
+\STATE Initialize empty lists: \( X_{\text{train\_encoded}} \), \( y_{\text{train\_encoded}} \), \( X_{\text{val\_encoded}} \), \( y_{\text{val\_encoded}} \)
+
+\STATE \textbf{Step 1: Extract Encoded Features for Training Set}
+\FOR{individual batch \( (x batch, y batch) \) in \( \text{train\_set} \)}
+    \STATE Generate encoded features: \( \text{encoded\_imgs} \gets \text{encoder.predict}(x\_batch) \)
+    \STATE Append \( \text{encoded\_imgs} \) to \( X_{\text{train\_encoded}} \)
+    \STATE Append \( y\_batch \) to \( y_{\text{train\_encoded}} \)
+\ENDFOR
+
+\STATE \textbf{Step 2: Extract Encoded Features for Validation Set}
+\FOR{individual batch \( (x batch, y batch) \) in \( \text{val\_set} \)}
+    \STATE Append \( \text{encoded\_imgs} \) to \( X_{\text{val\_encoded}} \)
+    \STATE Append \( y\_batch \) to \( y_{\text{val\_encoded}} \)
+\ENDFOR
+
+\STATE \textbf{Step 3: Convert Lists to Arrays}
+\STATE \( X_{\text{train\_encoded}} \gets \text{concatenate}(X_{\text{train\_encoded}}) \)
+\STATE \( y_{\text{train\_encoded}} \gets \text{concatenate}(y_{\text{train\_encoded}}) \)
+
+\STATE \textbf{Step 4: Flatten Encoded Features for Classifier Input}
+\STATE \( X_{\text{train\_encoded}} \gets \text{reshape}(X_{\text{train\_encoded}}, \text{shape}[0], -1) \)
+\STATE \( X_{\text{val\_encoded}} \gets \text{reshape}(X_{\text{val\_encoded}}, \text{shape}[0], -1) \)
+
+\STATE \textbf{End Algorithm}
+\end{algorithmic}
+\end{algorithm}
+
+% Max Pooling
+ \begin{equation}
+\text{MaxPooling}(x, 2, 2) = \max_{(i,j) \in \{(0,0), (0,1), (1,0), (1,1)\}} \text{I}(i, j)
+\end{equation}
+
+% Mean Squared Error Loss
+ \begin{equation}
+\text{Mean Square Error} = \frac{1}{n} \sum_{j=1}^{n} (input_j - output_j)^2
+\end{equation}
+
+This Autoencoder comprises two main components they are Encoder and the Decoder.
+The classifier takes the extracted features and is used to categorize the data into predefined classes using a DNN architecture.
+
+
+
+The encoder part of the model consists of many several convolutional layers that are used to minimize the spatial size or resolution of the input taken while incrementing the depth, capturing hierarchical representations of the data. After encoding, the data is sent through fully connected layers which are arranged in series manner for classification.
+
+
+\subsection{\textbf{Classificataion:}}
+The DNN utilized achieves an accuracy of about 98\% on LC2500 dataset and got 94\% accuracy on chest scan images.
+
+
+
+
+In the context of deep learning\cite{abdullah2021review}, classification refers to the task of assigning input data into predefined categories or classes. For our case, after the feature extraction performed by the encoder, we apply a classification layer to categorize the processed data into one of several predefined classes. This process allows us to utilize the autoencoder framework not only for dimensionality reduction and feature extraction but also for supervised learning tasks, such as classification.
+
+Classification is done by passing data from one layer to another layer in DNN. Here, this DNN is composed of 5 dense layers and 1 output layer. Layer 1 has 500 neurons, Layer 2 has 400 neurons, Layer 3 has 300 neurons, Layer 4 has 200 neurons, Layer 5 has 100 neurons, and the output layer has 3 neurons, as we have 3 output classes.
+
+The model was compiled using different parameters like Adam optimizer, and Sparse categorical cross-entropy used as a loss function, and used different evaluation metrics to assess the proposed model's performance during evaluation.
+
+Softmax Activation Function:
+\begin{equation}
+\sigma(z)_i = \frac{e^{z_i}}{\sum_{j=1}^{K} e^{z_j}}
+\end{equation}
+
+Sparse Categorical Cross-Entropy Loss:
+\begin{equation}
+L(input, \hat{output}) = -\frac{1}{N} \sum_{i=1}^{N} \log \hat{output}_{i}[input_{i}]
+\end{equation}
+
+MeanSquaredError (MSE):
+\begin{equation}
+L_{\text{MSE}}(input, \hat{output}) = \frac{1}{N} \sum_{i=1}^{N} (input_i - \hat{output}_i)^2
+\end{equation}
+
+
+\section{EXPERIMENTAL RESULTS AND DISCUSSION:}
+\subsection{About Performance metrics:}
+\begin{equation}
+    \text{Accuracy} = \frac{T_1 + T_2}{Total}
+\end{equation}
+\begin{equation}
+    \text{Precision} = \frac{T_1}{P2}
+\end{equation}
+\begin{equation}
+    \text{Recall} = \frac{T_1}{P1}
+\end{equation}
+\begin{equation}
+    \text{F1core} = \frac{2}{{\left(\frac{1}{\text{Precision}} + \frac{1}{\text{Recall}}\right)}}
+\end{equation}
+where Total=TP+TN+FP+FN 
+
+TP=T_1 \quad \text{and} \quad TN=T_2
+
+P2=TP+FP and P1=TP+FN
+
+
+
+\subsection{About LC25000 Histopathological Image Dataset: }
+\begin{table}[h!]
+\caption{Dataset Structure of \texttt{LC25000.zip}}
+\centering
+\begin{tabular}{|p{2.5cm}|c|c|c|}
+\hline
+\textbf{Folder} & \textbf{Subfolder} & \textbf{Number of Images} \\ \hline
+\texttt{colon image} & & 10,000 \\ \hline
+ & \texttt{colon\_aca}  & 5,000 \\ \hline
+ & \texttt{colon\_n}  & 5,000 \\ \hline
+\texttt{lung image}& & 15,000 \\ \hline
+ & \texttt{lung\_aca}  & 5,000 \\ \hline
+ & \texttt{lung\_scc}  & 5,000 \\ \hline
+ & \texttt{lung\_n}  & 5,000 \\ \hline
+\end{tabular}
+\end{table}
+The LC25000 dataset has 25,000 images that are arranged into five classes, each class consists of 5,000 images. The resolution of all images is 768 x 768 pixels in dimension. The dataset is present openly on the Internet. The dataset is of size 1850 MB zip file named \texttt{LC25000.zip}.
+
+
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.48\textwidth,height=0.15\textheight]{Classification_report.png}
+    \caption{Classification Report for Lung Cancer Detection}
+    \label{loss_function}
+\end{figure}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.34\textwidth,height=0.21\textheight]{Confusion_Matrix.png}
+    \caption{Confusion Matrix for Lung Cancer Detection}
+    \label{loss_function}
+\end{figure}
+
+The DNN utilized achieves an accuracy of about 98\%.In this part, we demonstrate the effectiveness of our dual-model system for lung cancer detection by inclusion of an autoencoder, which is then followed by a DNN, with the aid of loss curves, confusion matrix, classification report and ROC curve.
+
+The classification report summarizes the various evaluation metrics for each class. The detailed classification report is presented above.
+
+The confusion matrix is defined with a complete performance overview of the model goals in terms of predicted and actual TP, TN, FP, and FN. Below is depicted the confusion matrix for our model:
+
+The accuracy curve reveals the monotonic growth of accuracy for both training and validation which again illustrates the proficiency of the model to classify lung cancer. The accuracy curve depicts both trials of the model over the epochs.
+
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.38\textwidth,height=0.22\textheight]{Accuracy_curve.png}
+    \caption{Accuracy Curve of the Deep Neural Network}
+    \label{loss_function}
+\end{figure}
+
+The loss curves of the DNN model are available and depict the training and validation loss with low points over the epochs to shed more light on the training of model more so it’s learning.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.38\textwidth,height=0.20\textheight]{Loss_Curve.png}
+    \caption{Loss Curves of the Deep Neural Network}
+    \label{loss_function}
+\end{figure}
+
+
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.38\textwidth,height=0.19\textheight]{ROC_Curve.png}
+    \caption{ROC Curve for Multi-Class Classification}
+    \label{loss_function}
+\end{figure}
+
+
+The part under the ROC curve (AUC) helps to measures the separation between classes by the model. The greater the proportion of the AUC value to be the upper limit of 1, the better the performance in classifying objects.
+\begin{table}[h!]
+    \caption{Comparison of models and their accuracy on the LC25000 dataset}
+    \centering
+    \begin{tabular}{|p{3.7cm}|p{2.3cm}|p{1.5cm}|}
+        \hline
+        \textbf{Ref} & \textbf{Model}  & \textbf{Accuracy} \\
+        \hline
+        Sandeep Wadekar et.al\cite{article} & VGG19  & 97.73\% \\
+        Saeed Iqbal et.al\cite{biomimetics8040370} & ColonNet  & 95\% \\
+        \textbf{Proposed Model} & \textbf{AutoEncoders + DNN}  & \textbf{98\%} \\
+        \hline
+    \end{tabular}
+\end{table}
+
+Among all the models, AutoEncoder performs best because this type of model is best for extracting features. additionally, DNN performs backtracking to update itself for understanding the features and predict correctly.
+
+\section{Real-World Implementation Challenges and Ethical Considerations:}
+We have added a section describing the practical issues regarding the use of our model in real-word clinical environments. Dataset bias is one major issue, especially when there is limited or inadequate representation in the training dataset, as it leads to increased generalization difficulties when utilized on a wider patient base which can hamper accuracy in real-world application. Another prominent issue is inconsistency in staining procedures. As with any major image analysis, histopathological images can differ substantially in quality and character depending on the varying protocols employed in different labs making it harder for the model to detect patterns in multiple medical centers. Equally important is the cost of computation. The deployment of advanced deep learning techniques in actual hospitals and clinics is very expensive, both in terms of money and in the processing power needed. This is especially true in developing regions where resources are bare minimum.
+
+To test the accuracy of our model, we conducted tests on two datasets and in each case we obtained results greater than 95 percent. This remarkable accuracy achieved by the model on different datasets proves that our model is capable of generalizing and adapting to different data distributions which is very promising for its use in real-life clinical scenarios.
+
+Apart from the technical hurdles, there are ethical issues and regulations concerning AI that dictate how medical AI will be utilized. In order to protect sensitive medical information, data anonymization practices are a must. Our practices are compliant with the AI regulations enabling HIPAA (USA) and GDPR (EU) as they protect patient information and patients data. Also, we develop steps to address bias mitigation for the disparities in AI based diagnostics to ensure that our model works equally well for all the demographic groups. These precautions will ensure that the AI powered system for lung cancer detection is more ethical and has greater real-world impact.
+
+
+
+
+\section{Conclusion:}
+As part of this work, we devised a promising and efficient method for lung cancer detection by the aforementioned deep learning autoencoder for extracting some valuable features, and for classification DNN is used. Our proposed model yielded good performance results with a very good accuracy, indicating its having great potential in carrying out accurate lung cancer diagnosis at early stages.
+
+The by-passed approach is not only efficient, but it is also scalable and thus ideal for use in practical clinical environments. In the future there shall be attempts to improve the model by applying more complex architectures like transfer learning approaches and broaden the effort to other medical imaging modalities.
+Moving forward our work will involve including a greater number of diverse histopathological images to improve the model generalization. We also intend to study feature learning using more elaborate Transformer based architectures and also look into federated learning to facilitate privacy preserving AI in medical diagnosis. Finally, we will try to apply our strategy to other types of medical images in order to maximize the benefits of AI technologies in medicine.
+
+
+
+%\bibliographystyle{unsrt}
+\DeclareFieldFormat{labelnumber}{\mkbibbrackets{#1}}
+\DeclareFieldFormat{labelnumberwidth}{#1}
+\printbibliography[heading=bibintoc]
+
+
+\end{document}
